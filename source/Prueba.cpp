@@ -61,7 +61,7 @@ int main() {
 	//-------------------------------
 	
 	ifstream periods;
-	periods.open("p6.txt");
+	periods.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/p6.txt");
 
 	//If we can read/write great
 	while (periods.good())
@@ -108,7 +108,7 @@ int main() {
 			
 			// Open our file tabla6.txt
 			ifstream inFile1;
-			inFile1.open("table6.txt");
+			inFile1.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/table6.txt");
 
 
 			vector <double> f6(26);// Vector of table 6's frequencies
@@ -194,7 +194,7 @@ int main() {
 
 						  // Open our file tabla9.txt
 		ifstream inFile2;
-		inFile2.open("table9.txt");
+		inFile2.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/table9.txt");
 
 
 		vector <double> f9(26);// Vector of table 9's frequencies
@@ -299,6 +299,9 @@ int main() {
 
 	::std::cout << setw(WIDTH) << MINF << setw(WIDTH) << MSUP << setw(WIDTH) << NMAG << endl;
 	::std::cout << setw(WIDTH) << RINF << setw(WIDTH) << RSUP << setw(WIDTH) << NRAD << endl;
+	ofstream prueba;
+	prueba.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/prueba.txt");
+	prueba << "eses";
 
 	for (size_t i = 0; i < periodsreq.size(); i++)
 	{
