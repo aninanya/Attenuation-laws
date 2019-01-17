@@ -304,6 +304,7 @@ int main() {
 	prueba << "escgfxdgxdfges"<<endl;
 	cout << "Hola" << endl;
 
+	prueba<<"version2"<<endl;
 	for (size_t i = 0; i < periodsreq.size(); i++)
 	{
 		f0 = max(log(R0 / Rcd), 0.0);
