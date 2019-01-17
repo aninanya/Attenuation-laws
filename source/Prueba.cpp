@@ -32,11 +32,11 @@ int main() {
 	typedef std::vector<double> Vector;
 	double MINF; //Lower limit og magnitude given in the tabl
 	double MSUP; //Upper limit of magnitude given in the table
-	double NMAG; //Number of magnitudes for which intensity is given
+	int NMAG; //Number of magnitudes for which intensity is given
 	double DMAG;
 	double RINF; //Lower limit of distance given in the table
 	double RSUP; //Upper limit of distance given in the table
-	double NRAD; //Number of distances for which intensity is given
+	int NRAD; //Number of distances for which intensity is given
 	double TYPE; //An integer indicating the type of distance used by the attenuation table
 	double DLRAD;
 	double NT; //Number of periods
@@ -44,19 +44,19 @@ int main() {
 	double sigma = 0.7;
 	double AMAX = 0; //Type of stadistic distribution
 
-	int index1, index2;
+
 
 	//--- ATTENUATION VARIABLES ----
 
-	double M, f0, f1, f2, R0, Rcd;
+	double f0, f1, f2, R0, Rcd, Ztor;
 
 	S = 0.0;
-	Rcd = 4.0;
-	R0 = 3.0;
+	R0 = 10;
 
 	Vector periodsreq;
 	Vector frequenciesreq;
 	double aux1, aux2;
+	Vector aceleraciones(10);
 
 	//-------------------------------
 	
@@ -102,8 +102,11 @@ int main() {
 
 
 	//-------------------------------- GENRATING COEFICENTS -----------------------------------------------
+
+	Matrix results(periodsreq.size());//vertical size of Matrix
+	int index1, index2;
+
 	if (S == 0.0) {
-			Matrix results(periodsreq.size());//vertical size of Matrix
 			Matrix table6(26);//vertical size of Matrix
 			
 			// Open our file tabla6.txt
@@ -274,7 +277,20 @@ int main() {
 
 	}
 	
-	//---------------------------- FINISH ----------------------------------
+	//--------------------------------------- FINISH -------------------------------------------------------
+
+	//-------------------------- CHECKING ----------------------------------------
+
+#if 0
+	for (size_t i = 0; i < frequenciesreq.size(); i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+			cout << setw(WIDTH) << setprecision(4) << results.at(i).at(j);
+		cout << endl;
+	}
+#endif // 0
+
+	//----------------------- FINISH CHECKING -------------------------------------
 
 
 	//---------------------- GENERATING VALUES -------------------------------
@@ -286,34 +302,43 @@ int main() {
 	{
 		distances[i] = pow(10.0, log(RINF) + i*DLRAD);
 	}
-
+	distances[NRAD] = RSUP; //Changing last value
 	for (size_t i = 0; i < NMAG; i++)
 	{
 		magnitudes[i] = MINF + i*DMAG;
 	}
-
+	magnitudes[NMAG] = MSUP;//Changing last value
 
 	//---------------------------- FINISH -----------------------------------
 
 	//---------------------------- OUTPUT -----------------------------------
 
-	::std::cout << setw(WIDTH) << MINF << setw(WIDTH) << MSUP << setw(WIDTH) << NMAG << endl;
-	::std::cout << setw(WIDTH) << RINF << setw(WIDTH) << RSUP << setw(WIDTH) << NRAD << endl;
-	ofstream prueba;
-	prueba.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/prueba.txt");
-	prueba << "escgfxdgxdfges"<<endl;
-	cout << "Hola" << endl;
+	ofstream ab06;
+	ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/prueba.txt");
 
-	prueba<<"version2"<<endl;
-	for (size_t i = 0; i < periodsreq.size(); i++)
+
+	ab06 << setw(WIDTH) << MINF << setw(WIDTH) << MSUP << setw(WIDTH) << NMAG << endl;
+	ab06 << setw(WIDTH) << RINF << setw(WIDTH) << RSUP << setw(WIDTH) << NRAD << endl;
+
+
+	for (size_t i = 0; i < periodsreq.size(); i++)//Loop over periods
 	{
-		f0 = max(log(R0 / Rcd), 0.0);
-		f1 = min(log(Rcd), log(RINF));
-		f2 = max(log(Rcd / RSUP), 0.0);
-
-
-		::std::cout << setw(WIDTH) << periodsreq.at(i) << setw(WIDTH) << sigma << setw(WIDTH) << AMAX << endl;
-		
+		ab06 << setw(WIDTH) << periodsreq.at(i) << setw(WIDTH) << sigma << setw(WIDTH) << AMAX << endl;
+		for (size_t j = 0; j < NMAG; j++)//Loop over magnitudes
+		{
+			Ztor = 21 - 2.5*magnitudes[j];
+			for (size_t k = 0; k < 10; k++)//Loop over coeficents
+			{
+				Rcd = pow(pow(distances[k], 2.0) + pow(Ztor, 2.0), 0.2);
+				f0 = max(log(R0 / Rcd), 0.0);
+				f1 = min(log(Rcd), log(RINF));
+				f2 = max(log(Rcd / RSUP), 0.0);
+				aceleraciones[k] = pow(10.0, results.at(0).at(k) + results.at(1.0).at(k)*magnitudes.at(j) + results.at(2.0).at(k)*(pow(magnitudes.at(j), 2.0)) + 
+					(results.at(3.0).at(k) + results.at(4).at(k)*magnitudes.at(j))*f1 + (results.at(5).at(k) + results.at(6).at(k)*magnitudes.at(j))*f2 + (results.at(7).at(k) + results.at(9).at(k)*magnitudes.at(j))*f0 + results.at(9).at(k)*Rcd + S);
+			}
+			ab06 << setw(WIDTH) << aceleraciones[0] << setw(WIDTH) <<aceleraciones[1] << setw(WIDTH) << aceleraciones[2] << setw(WIDTH) << aceleraciones[3] << setw(WIDTH) << aceleraciones[4] << setw(WIDTH) << aceleraciones[5] << setw(WIDTH) << aceleraciones[6] 
+				<< setw(WIDTH) << aceleraciones[7] << setw(WIDTH) << aceleraciones[8] << setw(WIDTH) << aceleraciones[9];
+		}
 	}
 	
 	system("pause");
