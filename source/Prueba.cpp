@@ -301,7 +301,7 @@ int main() {
 	::std::cout << setw(WIDTH) << RINF << setw(WIDTH) << RSUP << setw(WIDTH) << NRAD << endl;
 	ofstream prueba;
 	prueba.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/prueba.txt");
-	prueba << "eses";
+	prueba << "eses"<<endl;
 
 	for (size_t i = 0; i < periodsreq.size(); i++)
 	{
