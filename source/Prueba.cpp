@@ -166,9 +166,18 @@ int main() {
 			std::vector<double>::iterator it = std::find(f6.begin(), f6.end(), nearfrequency);
 			index1 = std::distance(f6.begin(), it);
 
-			if ((nearfrequency < required)) { index2 = index1 + 1; }
+			if ((nearfrequency < required))
+			{
+				if (index1 == 25) { index2 = index1 - 1; }
+				else { index2 = index1 + 1; }
+			}
 
-			if ((nearfrequency > required)) { index2 = index1 - 1; }
+
+			if ((nearfrequency > required))
+			{
+				if (index1 == 0) { index2 = index1 + 1; }
+				else { index2 = index1 - 1; }
+			}
 
 
 #if 1
@@ -286,9 +295,9 @@ int main() {
 
 	}//MOD//MODIFY
 
-	//--------------------------------------- FINISH -------------------------------------------------------
+	 //--------------------------------------- FINISH -------------------------------------------------------
 
-	//-------------------------- CHECKING ----------------------------------------
+	 //-------------------------- CHECKING ----------------------------------------
 
 #if 0
 	for (size_t i = 0; i < frequenciesreq.size(); i++)
@@ -319,9 +328,9 @@ int main() {
 	}
 	magnitudes[NMAG - 1] = MSUP;//Changing last value
 
-	//---------------------------- FINISH -----------------------------------
+								//---------------------------- FINISH -----------------------------------
 
-	//---------------------------- OUTPUT -----------------------------------
+								//---------------------------- OUTPUT -----------------------------------
 
 	ofstream ab06;
 	ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/prueba.txt");
