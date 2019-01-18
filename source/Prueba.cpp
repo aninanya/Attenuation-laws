@@ -65,7 +65,7 @@ int main() {
 	//-------------------------------
 
 	ifstream periods;
-	periods.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/periods.txt");
+	periods.open("C:/Users/Hugo Ninanya/Documents/GitHub/aninanya/BOORE/BOORE/data/periods.txt");
 
 	//If we can read/write great
 	while (periods.good())
@@ -89,6 +89,10 @@ int main() {
 	}
 #if 1
 	cout << periodsreq.size() << " " << frequenciesreq.size() << endl;
+	for (size_t i = 0; i < frequenciesreq.size(); i++)
+	{
+		cout << frequenciesreq[i] << endl;
+	}
 #endif // 1
 
 
@@ -97,7 +101,7 @@ int main() {
 	/*cin >> MINF >> MSUP >> NMAG;*/
 	MINF = 4.0;
 	MSUP = 8.5;
-	NMAG = 12.0;
+	NMAG = 12;
 	//cout << "Enter the minimum distance, maximum and the number of intermediate distances: " << endl;
 	//cin >> RINF >> RSUP >> NRAD;
 	RINF = 70.0;
@@ -121,7 +125,7 @@ int main() {
 
 		// Open our file tabla6.txt
 		ifstream inFile1;
-		inFile1.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/table6.txt");
+		inFile1.open("C:/Users/Hugo Ninanya/Documents/GitHub/aninanya/BOORE/BOORE/data/table6.txt");
 
 
 		vector <double> f6(26);// Vector of table 6's frequencies
@@ -160,40 +164,45 @@ int main() {
 			double nearfrequency = 0.0;
 
 			double required = frequenciesreq[k];
-			nearfrequency = closest(f6, required);
-			//cout << frequency << endl;
-
-			std::vector<double>::iterator it = std::find(f6.begin(), f6.end(), nearfrequency);
-			index1 = std::distance(f6.begin(), it);
-
-			if ((nearfrequency < required))
-			{
-				if (index1 == 25) { index2 = index1 - 1; }
-				else { index2 = index1 + 1; }
+			if (required == 100) {
+				for (size_t j = 0; j < 10; j++)	coefreq.at(j) = table6.at(24).at(j + 2);
+				results.at(k) = coefreq;
 			}
-
-
-			if ((nearfrequency > required))
+			else
 			{
-				if (index1 == 0) { index2 = index1 + 1; }
-				else { index2 = index1 - 1; }
-			}
+				nearfrequency = closest(f6, required);
+				std::vector<double>::iterator it = std::find(f6.begin(), f6.end(), nearfrequency);
+				index1 = std::distance(f6.begin(), it);
+
+				if ((nearfrequency <= required))
+				{
+					if (index1 == 25) { index2 = index1 - 1; }
+					else { index2 = index1 + 1; }
+				}
+				
+				if ((nearfrequency >= required))
+				{
+					if (index1 == 0) { index2 = index1 + 1; }
+					else { index2 = index1 - 1; }
+				}
 
 
 #if 1
-			cout << index1 << " " << index2 << endl;
+				cout << index1 << " " << index2 << endl;
 #endif // 0
 
-			for (size_t j = 0; j < 10; j++)
-			{
-				coefreq.at(j) = (((frequenciesreq[k] - table6.at(index1).at(0))*table6.at(index2).at(j + 2)) + ((table6.at(index2).at(0) - frequenciesreq[k])*table6.at(index1).at(j + 2))) / (table6.at(index2).at(0) - table6.at(index1).at(0));
+				for (size_t j = 0; j < 10; j++)
+				{
+					coefreq.at(j) = (((frequenciesreq[k] - table6.at(index1).at(0))*table6.at(index2).at(j + 2)) + ((table6.at(index2).at(0) - frequenciesreq[k])*table6.at(index1).at(j + 2))) / (table6.at(index2).at(0) - table6.at(index1).at(0));
+				}
+				results.at(k) = coefreq;
 			}
-			results.at(k) = coefreq;
 		}
+
 		//------------------------------------------------------------------------------------------------------------------OK
 #if 1
 		ofstream coefT6; // Archive
-		coefT6.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/resultsT6.dat");
+		coefT6.open("C:/Users/Hugo Ninanya/Documents/GitHub/aninanya/BOORE/BOORE/results/resultsT6.dat");
 		coefT6 << "#Coefficents for differents frequencies (Table6 - Atkinson and Boore, 2006)" << endl;
 		coefT6 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
 
@@ -215,7 +224,7 @@ int main() {
 
 						  // Open our file tabla9.txt
 		ifstream inFile2;
-		inFile2.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/table9.txt");
+		inFile2.open("C:/Users/Hugo Ninanya/Documents/GitHub/aninanya/BOORE/BOORE/data/table9.txt");
 
 
 		vector <double> f9(26);// Vector of table 9's frequencies
@@ -333,7 +342,7 @@ int main() {
 								//---------------------------- OUTPUT -----------------------------------
 
 	ofstream ab06;
-	ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/prueba.txt");
+	ab06.open("C:/Users/Hugo Ninanya/Documents/GitHub/aninanya/BOORE/BOORE/results/prueba.txt");
 
 	ab06 << setprecision(PRECISION2);
 	ab06 << setw(WIDTH) << MINF << setw(WIDTH) << MSUP << setw(WIDTH) << NMAG << endl;
@@ -352,8 +361,9 @@ int main() {
 				f0 = max(log(R0 / Rcd), 0.0);
 				f1 = min(log(Rcd), log(RINF));
 				f2 = max(log(Rcd / RSUP), 0.0);
-				aceleraciones[k] = pow(10.0, results.at(0).at(k) + results.at(1.0).at(k)*magnitudes.at(j) + results.at(2.0).at(k)*(pow(magnitudes.at(j), 2.0)) +
-					(results.at(3.0).at(k) + results.at(4).at(k)*magnitudes.at(j))*f1 + (results.at(5).at(k) + results.at(6).at(k)*magnitudes.at(j))*f2 + (results.at(7).at(k) + results.at(9).at(k)*magnitudes.at(j))*f0 + results.at(9).at(k)*Rcd + S);
+				aceleraciones[k] = pow(10.0, results.at(i).at(0) + results.at(i).at(1)*magnitudes.at(j) +
+					results.at(i).at(2)*(pow(magnitudes.at(j), 2.0)) + (results.at(i).at(3) + results.at(i).at(4)*magnitudes.at(j))*f1 +
+					(results.at(i).at(5) + results.at(i).at(6)*magnitudes.at(j))*f2 + (results.at(i).at(7) + results.at(i).at(8)*magnitudes.at(j))*f0 + results.at(i).at(9)*Rcd + S);
 			}
 			ab06 << setw(WIDTH) << aceleraciones[0] << setw(WIDTH) << aceleraciones[1] << setw(WIDTH) << aceleraciones[2] << setw(WIDTH) << aceleraciones[3] << setw(WIDTH) << aceleraciones[4] << setw(WIDTH) << aceleraciones[5] << setw(WIDTH) << aceleraciones[6]
 				<< setw(WIDTH) << aceleraciones[7] << setw(WIDTH) << aceleraciones[8] << setw(WIDTH) << aceleraciones[9] << endl;
