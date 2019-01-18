@@ -17,7 +17,7 @@
 #define PRECISION 6
 #endif // !PRECISION
 #ifndef PRECISION2
-#define PRECISION2 2
+#define PRECISION2 3
 #endif // !PRECISION2
 
 
@@ -191,7 +191,7 @@ int main() {
 		for (size_t i = 0; i < periodsreq.size(); i++)
 		{
 
-			for (size_t j = 0; j < 10;j++)
+			for (size_t j = 0; j < 10; j++)
 				coefT6 << setw(WIDTH) << setprecision(4) << results.at(i).at(j);
 			coefT6 << endl;
 		}
@@ -200,7 +200,7 @@ int main() {
 #endif // 0
 
 	}
-	else {
+	else { //MODIFY!
 		Matrix results(periodsreq.size());//vertical size of Matrix
 		Matrix table9(26);//vertical size of Matrix
 
@@ -243,7 +243,7 @@ int main() {
 		for (size_t k = 0; k < frequenciesreq.size(); k++)
 		{
 			double nearfrequency = 0;
-			
+
 			double required = frequenciesreq[k];
 			nearfrequency = closest(f9, required);
 			//cout << frequency << endl;
@@ -284,7 +284,7 @@ int main() {
 
 #endif // 0
 
-	}
+	}//MOD//MODIFY
 
 	//--------------------------------------- FINISH -------------------------------------------------------
 
@@ -312,12 +312,12 @@ int main() {
 	{
 		distances[i] = pow(10.0, log(RINF) + i*DLRAD);
 	}
-	distances[NRAD-1] = RSUP; //Changing last value
+	distances[NRAD - 1] = RSUP; //Changing last value
 	for (size_t i = 0; i < NMAG; i++)
 	{
 		magnitudes[i] = MINF + i*DMAG;
 	}
-	magnitudes[NMAG-1] = MSUP;//Changing last value
+	magnitudes[NMAG - 1] = MSUP;//Changing last value
 
 	//---------------------------- FINISH -----------------------------------
 
