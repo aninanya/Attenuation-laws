@@ -65,7 +65,7 @@ int main() {
 	//-------------------------------
 
 	ifstream periods;
-	periods.open("C:/Users/Hugo Ninanya/Documents/GitHub/aninanya/BOORE/BOORE/data/periods.txt");
+	periods.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/periods.txt");
 
 	//If we can read/write great
 	while (periods.good())
@@ -87,7 +87,7 @@ int main() {
 		aux2 = 1 / periodsreq.at(i);
 		frequenciesreq.push_back(aux2);
 	}
-#if 1
+#if 0
 	cout << periodsreq.size() << " " << frequenciesreq.size() << endl;
 	for (size_t i = 0; i < frequenciesreq.size(); i++)
 	{
@@ -97,8 +97,9 @@ int main() {
 
 
 	// ---------------------------------- ASKING FOR DATA ------------------------------------------------
-	::std::cout << "Enter the minimum magnitude, maximum and the number of intermediate quantities: " << endl;
-	/*cin >> MINF >> MSUP >> NMAG;*/
+
+	//::std::cout << "Enter the minimum magnitude, maximum and the number of intermediate quantities: " << endl;
+	//cin >> MINF >> MSUP >> NMAG;
 	MINF = 4.0;
 	MSUP = 8.5;
 	NMAG = 12;
@@ -115,22 +116,21 @@ int main() {
 
 	Matrix results(periodsreq.size());//vertical size of Matrix
 	Matrix table6(26);//AB06, Table 6
-	vector <double> coefreq(10);
-
-
-	int index1, index2;
+	Matrix table9(26);//AB06, Table 9
+	vector <double> coficentesreq(10);
+	int index1, index2;//Positions to interpolate
 
 	if (S == 0.0)
 	{
 
 		// Open our file tabla6.txt
 		ifstream inFile1;
-		inFile1.open("C:/Users/Hugo Ninanya/Documents/GitHub/aninanya/BOORE/BOORE/data/table6.txt");
+		inFile1.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/table6.txt");
 
 
 		vector <double> f6(26);// Vector of table 6's frequencies
 		vector <double> coef(12);// Vector of table 6's coeficents 
-								 // If we can read/write great
+		// If we can read/write great
 		if (inFile1.good())
 		{
 			for (size_t i = 0; i < 26; i++) {
@@ -164,9 +164,18 @@ int main() {
 			double nearfrequency = 0.0;
 
 			double required = frequenciesreq[k];
-			if (required == 100) {
-				for (size_t j = 0; j < 10; j++)	coefreq.at(j) = table6.at(24).at(j + 2);
-				results.at(k) = coefreq;
+			if ((required == 100) || (required == 90.909090909090921)) {
+
+				if (required == 100)
+				{
+					for (size_t j = 0; j < 10; j++)	coficentesreq.at(j) = table6.at(24).at(j + 2);
+					results.at(k) = coficentesreq;
+				}
+				else
+				{
+					for (size_t j = 0; j < 10; j++)	coficentesreq.at(j) = table6.at(25).at(j + 2);
+					results.at(k) = coficentesreq;
+				}
 			}
 			else
 			{
@@ -187,22 +196,22 @@ int main() {
 				}
 
 
-#if 1
+#if 0
 				cout << index1 << " " << index2 << endl;
 #endif // 0
 
 				for (size_t j = 0; j < 10; j++)
 				{
-					coefreq.at(j) = (((frequenciesreq[k] - table6.at(index1).at(0))*table6.at(index2).at(j + 2)) + ((table6.at(index2).at(0) - frequenciesreq[k])*table6.at(index1).at(j + 2))) / (table6.at(index2).at(0) - table6.at(index1).at(0));
+					coficentesreq.at(j) = (((frequenciesreq[k] - table6.at(index1).at(0))*table6.at(index2).at(j + 2)) + ((table6.at(index2).at(0) - frequenciesreq[k])*table6.at(index1).at(j + 2))) / (table6.at(index2).at(0) - table6.at(index1).at(0));
 				}
-				results.at(k) = coefreq;
+				results.at(k) = coficentesreq;
 			}
 		}
 
 		//------------------------------------------------------------------------------------------------------------------OK
 #if 1
 		ofstream coefT6; // Archive
-		coefT6.open("C:/Users/Hugo Ninanya/Documents/GitHub/aninanya/BOORE/BOORE/results/resultsT6.dat");
+		coefT6.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/resultsT6.dat");
 		coefT6 << "#Coefficents for differents frequencies (Table6 - Atkinson and Boore, 2006)" << endl;
 		coefT6 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
 
@@ -218,19 +227,15 @@ int main() {
 #endif // 0
 
 	}
-	else { //MODIFY!
-		Matrix results(periodsreq.size());//vertical size of Matrix
-		Matrix table9(26);//vertical size of Matrix
-
-						  // Open our file tabla9.txt
+	else {
+		// Open our file tabla9.txt
 		ifstream inFile2;
-		inFile2.open("C:/Users/Hugo Ninanya/Documents/GitHub/aninanya/BOORE/BOORE/data/table9.txt");
+		inFile2.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/table9.txt");
 
 
 		vector <double> f9(26);// Vector of table 9's frequencies
 		vector <double> coef(12);// Vector of table 9's coeficents 
-		vector <double> coefreq(10);// Vector of results
-									// If we can read/write great
+		// If we can read/write great
 		if (inFile2.good())
 		{
 			for (size_t i = 0; i < 26; i++) {
@@ -252,57 +257,81 @@ int main() {
 			cout << endl;
 		}
 
-
 		cout << endl;
+		//------------------------------------------------------------------------------------------------------------------OK
+
 		for (size_t i = 0; i < frequenciesreq.size(); i++)
 			cout << frequenciesreq.at(i) << endl;
 #endif // 1
 
 		for (size_t k = 0; k < frequenciesreq.size(); k++)
 		{
-			double nearfrequency = 0;
+			double nearfrequency = 0.0;
 
 			double required = frequenciesreq[k];
-			nearfrequency = closest(f9, required);
-			//cout << frequency << endl;
+			if ((required == 100) || (required == 90.90)) {
 
-			std::vector<double>::iterator it = std::find(f9.begin(), f9.end(), nearfrequency);
-			int index1 = std::distance(f9.begin(), it);
-			int index2;
+				if (required == 100)
+				{
+					for (size_t j = 0; j < 10; j++)	coficentesreq.at(j) = table6.at(24).at(j + 2);
+					results.at(k) = coficentesreq;
+				}
+				else
+				{
+					for (size_t j = 0; j < 10; j++)	coficentesreq.at(j) = table6.at(25).at(j + 2);
+					results.at(k) = coficentesreq;
+				}
+			}
+			else
+			{
+				nearfrequency = closest(f9, required);
+				std::vector<double>::iterator it = std::find(f9.begin(), f9.end(), nearfrequency);
+				index1 = std::distance(f9.begin(), it);
 
-			if (nearfrequency < required) { index2 = index1 + 1; }
-			else { index2 = index1 - 1; }
+				if ((nearfrequency <= required))
+				{
+					if (index1 == 25) { index2 = index1 - 1; }
+					else { index2 = index1 + 1; }
+				}
+
+				if ((nearfrequency >= required))
+				{
+					if (index1 == 0) { index2 = index1 + 1; }
+					else { index2 = index1 - 1; }
+				}
 
 
 #if 0
-			cout << index1t6 << " " << index2t6 << endl;
+				cout << index1 << " " << index2 << endl;
 #endif // 0
 
-			for (size_t j = 0; j < 10; j++)
-			{
-				coefreq.at(j) = (((frequenciesreq.at(k) - table9.at(index1).at(0))*table9.at(index2).at(j + 2)) +
-					((table9.at(index2).at(0) - frequenciesreq.at(k))*table9.at(index1).at(j + 2))) / (table9.at(index2).at(0) - table9.at(index1).at(0));
+				for (size_t j = 0; j < 10; j++)
+				{
+					coficentesreq.at(j) = (((frequenciesreq[k] - table9.at(index1).at(0))*table9.at(index2).at(j + 2)) + ((table9.at(index2).at(0) - frequenciesreq[k])*table9.at(index1).at(j + 2))) / (table9.at(index2).at(0) - table9.at(index1).at(0));
+				}
+				results.at(k) = coficentesreq;
 			}
-			results.at(k) = coefreq;
 		}
 
-#if 0
+		//------------------------------------------------------------------------------------------------------------------OK
+#if 1
 		ofstream coefT9; // Archive
-		coefT9.open("resultsT9.dat");
+		coefT9.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/resultsT9.dat");
 		coefT9 << "#Coefficents for differents frequencies (Table9 - Atkinson and Boore, 2006)" << endl;
 		coefT9 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
 
 		for (size_t i = 0; i < periodsreq.size(); i++)
 		{
 
-			for (size_t j = 0; j < 12; j++)
+			for (size_t j = 0; j < 10; j++)
 				coefT9 << setw(WIDTH) << setprecision(4) << results.at(i).at(j);
 			coefT9 << endl;
 		}
 
+
 #endif // 0
 
-	}//MOD//MODIFY
+	}
 
 	 //--------------------------------------- FINISH -------------------------------------------------------
 
@@ -337,12 +366,12 @@ int main() {
 	}
 	magnitudes[NMAG - 1] = MSUP;//Changing last value
 
-								//---------------------------- FINISH -----------------------------------
+	//---------------------------- FINISH -----------------------------------
 
-								//---------------------------- OUTPUT -----------------------------------
+	//---------------------------- OUTPUT -----------------------------------
 
 	ofstream ab06;
-	ab06.open("C:/Users/Hugo Ninanya/Documents/GitHub/aninanya/BOORE/BOORE/results/prueba.txt");
+	ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/prueba.txt");
 
 	ab06 << setprecision(PRECISION2);
 	ab06 << setw(WIDTH) << MINF << setw(WIDTH) << MSUP << setw(WIDTH) << NMAG << endl;
@@ -357,7 +386,7 @@ int main() {
 			Ztor = 21 - 2.5*magnitudes[j];
 			for (size_t k = 0; k < 10; k++)//Loop over coeficents
 			{
-				Rcd = pow(pow(distances[k], 2.0) + pow(Ztor, 2.0), 0.2);
+				Rcd = pow(pow(distances[k], 2.0) + pow(Ztor, 2.0), 0.5);
 				f0 = max(log(R0 / Rcd), 0.0);
 				f1 = min(log(Rcd), log(RINF));
 				f2 = max(log(Rcd / RSUP), 0.0);
