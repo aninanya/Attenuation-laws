@@ -11,7 +11,7 @@
 #include <cmath>
 
 #ifndef WIDTH	
-#define WIDTH 13
+#define WIDTH 10
 #endif // !WIDTH
 #ifndef PRECISION
 #define PRECISION 6
@@ -60,7 +60,7 @@ int main() {
 	Vector periodsreq;
 	Vector frequenciesreq;
 	double aux1, aux2;
-	Vector aceleraciones(10);
+
 
 	//-------------------------------
 
@@ -107,10 +107,10 @@ int main() {
 	//cin >> RINF >> RSUP >> NRAD;
 	RINF = 70.0;
 	RSUP = 140.0;
-	NRAD = 20.0;
+	NRAD = 20;
 
 	// -------------------------------------- FINISH ------------------------------------------------------
-
+	Vector aceleraciones(NRAD);
 
 	//-------------------------------- GENRATING COEFICENTS -----------------------------------------------
 
@@ -130,7 +130,7 @@ int main() {
 
 		vector <double> f6(26);// Vector of table 6's frequencies
 		vector <double> coef(12);// Vector of table 6's coeficents 
-		// If we can read/write great
+								 // If we can read/write great
 		if (inFile1.good())
 		{
 			for (size_t i = 0; i < 26; i++) {
@@ -188,7 +188,7 @@ int main() {
 					if (index1 == 25) { index2 = index1 - 1; }
 					else { index2 = index1 + 1; }
 				}
-				
+
 				if ((nearfrequency >= required))
 				{
 					if (index1 == 0) { index2 = index1 + 1; }
@@ -235,7 +235,7 @@ int main() {
 
 		vector <double> f9(26);// Vector of table 9's frequencies
 		vector <double> coef(12);// Vector of table 9's coeficents 
-		// If we can read/write great
+								 // If we can read/write great
 		if (inFile2.good())
 		{
 			for (size_t i = 0; i < 26; i++) {
@@ -333,9 +333,9 @@ int main() {
 
 	}
 
-	 //--------------------------------------- FINISH -------------------------------------------------------
+	//--------------------------------------- FINISH -------------------------------------------------------
 
-	 //-------------------------- CHECKING ----------------------------------------
+	//-------------------------- CHECKING ----------------------------------------
 
 #if 0
 	for (size_t i = 0; i < frequenciesreq.size(); i++)
@@ -366,9 +366,9 @@ int main() {
 	}
 	magnitudes[NMAG - 1] = MSUP;//Changing last value
 
-	//---------------------------- FINISH -----------------------------------
+								//---------------------------- FINISH -----------------------------------
 
-	//---------------------------- OUTPUT -----------------------------------
+								//---------------------------- OUTPUT -----------------------------------
 
 	ofstream ab06;
 	ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/prueba.txt");
@@ -384,7 +384,7 @@ int main() {
 		for (size_t j = 0; j < NMAG; j++)//Loop over magnitudes
 		{
 			Ztor = 21 - 2.5*magnitudes[j];
-			for (size_t k = 0; k < 10; k++)//Loop over coeficents
+			for (size_t k = 0; k < NRAD; k++)//Loop over coeficents
 			{
 				Rcd = pow(pow(distances[k], 2.0) + pow(Ztor, 2.0), 0.5);
 				f0 = max(log(R0 / Rcd), 0.0);
@@ -394,8 +394,11 @@ int main() {
 					results.at(i).at(2)*(pow(magnitudes.at(j), 2.0)) + (results.at(i).at(3) + results.at(i).at(4)*magnitudes.at(j))*f1 +
 					(results.at(i).at(5) + results.at(i).at(6)*magnitudes.at(j))*f2 + (results.at(i).at(7) + results.at(i).at(8)*magnitudes.at(j))*f0 + results.at(i).at(9)*Rcd + S);
 			}
-			ab06 << setw(WIDTH) << aceleraciones[0] << setw(WIDTH) << aceleraciones[1] << setw(WIDTH) << aceleraciones[2] << setw(WIDTH) << aceleraciones[3] << setw(WIDTH) << aceleraciones[4] << setw(WIDTH) << aceleraciones[5] << setw(WIDTH) << aceleraciones[6]
-				<< setw(WIDTH) << aceleraciones[7] << setw(WIDTH) << aceleraciones[8] << setw(WIDTH) << aceleraciones[9] << endl;
+			for (size_t k = 0; k < NRAD; k++)
+			{
+				ab06 << setw(WIDTH) << aceleraciones[k];
+			}
+			ab06 << endl;
 		}
 	}
 
