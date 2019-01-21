@@ -40,7 +40,7 @@ int main() {
 	double RINF; //Lower limit of distance given in the table
 	double RSUP; //Upper limit of distance given in the table
 	int NRAD; //Number of distances for which intensity is given
-	double TYPE; //An integer indicating the type of distance used by the attenuation table
+	double TYPEMD; //An integer indicating the type of distance used by the attenuation table
 	double DLRAD;
 	double NT; //Number of periods
 	double S;
@@ -50,18 +50,22 @@ int main() {
 
 
 
-				//--- ATTENUATION VARIABLES ----
+	//--- ATTENUATION VARIABLES ----
 
-	double f0, f1, f2, R0, Rcd, Ztor;
-
-	S = 0.0;
+	double f0, f1, f2, R0, R1, R2, Rcd, Ztor;
 	R0 = 10;
+	R1 = 70;
+	R2 = 140;
+	S = 0.0;
 
 	Vector periodsreq;
 	Vector frequenciesreq;
 	double aux1, aux2;
 
+	//-------------------------------
 
+	//------- DEBUG VARIABLES -------
+	double A, B, C, D, E, F, G;
 	//-------------------------------
 
 	ifstream periods;
@@ -100,13 +104,13 @@ int main() {
 
 	//::std::cout << "Enter the minimum magnitude, maximum and the number of intermediate quantities: " << endl;
 	//cin >> MINF >> MSUP >> NMAG;
-	MINF = 4.0;
-	MSUP = 8.5;
+	MINF = 3.5;
+	MSUP = 8.0;
 	NMAG = 12;
 	//cout << "Enter the minimum distance, maximum and the number of intermediate distances: " << endl;
 	//cin >> RINF >> RSUP >> NRAD;
-	RINF = 70.0;
-	RSUP = 140.0;
+	RINF = 10.0;
+	RSUP = 500.0;
 	NRAD = 20;
 
 	// -------------------------------------- FINISH ------------------------------------------------------
@@ -355,9 +359,11 @@ int main() {
 	Vector magnitudes(NMAG);
 	DMAG = (MSUP - MINF) / (NMAG - 1);
 	DLRAD = (log10(RSUP) - log10(RINF)) / (NRAD - 1);
+
+	
 	for (size_t i = 0; i < NRAD; i++)
 	{
-		distances[i] = pow(10.0, log(RINF) + i*DLRAD);
+		distances[i] = pow(10, log10(RINF) + i*DLRAD);
 	}
 	distances[NRAD - 1] = RSUP; //Changing last value
 	for (size_t i = 0; i < NMAG; i++)
@@ -369,13 +375,41 @@ int main() {
 								//---------------------------- FINISH -----------------------------------
 
 								//---------------------------- OUTPUT -----------------------------------
+	//Value Type of distance
+	//	1 (or blank) Focal
+	//	2 Epicentral
+	//	3 Joyner and Boore
+	//	4 Closest to rupture area(Rrup)
+
+	TYPEMD = 4;
+
+#if 1
+	cout << "MAGNITUDES:" << endl;
+	for (size_t i = 0; i < NMAG; i++)
+	{
+		cout << magnitudes[i] << endl;
+	}
+	cout << endl;
+#endif // 0
+#if 1
+	cout << "DISTANCES:" << endl;
+	for (size_t i = 0; i < NRAD; i++)
+	{
+		cout << distances[i] << endl;
+	}
+	cout << endl;
+#endif // 0
 
 	ofstream ab06;
-	ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/prueba.txt");
+	ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/prueba.ATN");
 
 	ab06 << setprecision(PRECISION2);
+	//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Description" << setw(WIDTH) << ": Sample attenuation file constructed for illustration purposes (2008)" << endl;	
+	//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Units" << setw(WIDTH) << ": cm/sec/sec" << endl;
+	//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Distribution" << setw(WIDTH) << ": 2" << endl;
+	//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Dimension" << setw(WIDTH) << ": Aceleration" << endl;
 	ab06 << setw(WIDTH) << MINF << setw(WIDTH) << MSUP << setw(WIDTH) << NMAG << endl;
-	ab06 << setw(WIDTH) << RINF << setw(WIDTH) << RSUP << setw(WIDTH) << NRAD << endl;
+	ab06 << setw(WIDTH) << RINF << setw(WIDTH) << RSUP << setw(WIDTH) << NRAD << setw(WIDTH)<< TYPEMD<<endl;
 
 
 	for (size_t i = 0; i < periodsreq.size(); i++)//Loop over periods
@@ -387,16 +421,19 @@ int main() {
 			for (size_t k = 0; k < NRAD; k++)//Loop over coeficents
 			{
 				Rcd = pow(pow(distances[k], 2.0) + pow(Ztor, 2.0), 0.5);
-				f0 = max(log(R0 / Rcd), 0.0);
-				f1 = min(log(Rcd), log(RINF));
-				f2 = max(log(Rcd / RSUP), 0.0);
-				aceleraciones[k] = pow(10.0, results.at(i).at(0) + results.at(i).at(1)*magnitudes.at(j) +
-					results.at(i).at(2)*(pow(magnitudes.at(j), 2.0)) + (results.at(i).at(3) + results.at(i).at(4)*magnitudes.at(j))*f1 +
-					(results.at(i).at(5) + results.at(i).at(6)*magnitudes.at(j))*f2 + (results.at(i).at(7) + results.at(i).at(8)*magnitudes.at(j))*f0 + results.at(i).at(9)*Rcd + S);
-			}
-			for (size_t k = 0; k < NRAD; k++)
-			{
-				ab06 << setw(WIDTH) << aceleraciones[k];
+				f0 = max(log10(R0 / Rcd), 0.0);
+				f1 = min(log10(Rcd), log10(R1));
+				f2 = max(log10(Rcd / R2), 0.0);
+				A = results.at(i).at(0);
+				B = results.at(i).at(1)*magnitudes.at(j);
+				C = results.at(i).at(2)*(pow(magnitudes.at(j), 2.0));
+				D = (results.at(i).at(3) + results.at(i).at(4)*magnitudes.at(j))*f1;
+				E = (results.at(i).at(5) + results.at(i).at(6)*magnitudes.at(j))*f2;
+				F = (results.at(i).at(7) + results.at(i).at(8)*magnitudes.at(j))*f0;
+				G = results.at(i).at(9)*Rcd;
+				aceleraciones[k] = pow(10.0, A + B + C + D + E + F + G + S);
+
+				ab06 << setw(WIDTH) << aceleraciones[k];//Saving values
 			}
 			ab06 << endl;
 		}
