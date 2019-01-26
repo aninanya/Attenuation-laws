@@ -1,0 +1,825 @@
+//#include <iostream>
+//#include <fstream>
+//#include <vector>
+//#include <string>
+//#include <sstream>
+//#include <iomanip>
+//#include <map>
+//#include <cstdlib>
+//#include <iterator>
+//#include <algorithm>
+//#include <cmath>
+//
+//#ifndef WIDTH	
+//#define WIDTH 16
+//#endif // !WIDTH
+//#ifndef PRECISION
+//#define PRECISION 8
+//#endif // !PRECISION
+//#ifndef PRECISION2
+//#define PRECISION2 3
+//#endif // !PRECISION2
+//#ifndef e
+//#define e 2.7182818284590
+//#endif // !e
+//
+//
+//
+//using namespace std;
+//
+//double closest(std::vector<double> const& vec, double value) {
+//	auto const it = std::lower_bound(vec.begin(), vec.end(), value);
+//	if (it == vec.end()) { return -1; }
+//	return *it;
+//}
+//
+//int main() {
+//
+//	typedef std::vector<vector<double>> Matrix;
+//	typedef std::vector<double> Vector;
+//	double MINF; //Lower limit og magnitude given in the tabl
+//	double MSUP; //Upper limit of magnitude given in the table
+//	int NMAG; //Number of magnitudes for which intensity is given
+//	double DMAG;
+//	double RINF; //Lower limit of distance given in the table
+//	double RSUP; //Upper limit of distance given in the table
+//	int NRAD; //Number of distances for which intensity is given
+//	double TYPEMD; //An integer indicating the type of distance used by the attenuation table
+//	double DLRAD;
+//	double S = 0.0;
+//	double sigma = 0.7;
+//	double AMAX = 0; //Type of stadistic distribution
+//	double V30 = 800;//Shear wave velocity
+//	double STRESS;//Stress asked
+//	double STRESSI;//Inicial stress
+//	double FACTOR;//Stress adjustment factor
+//	double LOG10SF2;//Adjustment
+//					//--- ATTENUATION VARIABLES ----
+//
+//	double f0, f1, f2, R0, R1, R2, Rcd, Ztor;
+//	R0 = 10;
+//	R1 = 70;
+//	R2 = 140;
+//
+//	Vector periodsreq;
+//	Vector frequenciesreq;
+//	double aux1, aux2;
+//
+//	//-------------------------------
+//
+//	//------- DEBUG VARIABLES -------
+//	double A, B, C, D, E, F, G;//log10(PSA)=A+B+C+D+E+F+G
+//							   //-------------------------------
+//
+//	ifstream periods;
+//	periods.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/periods.txt");
+//
+//	//If we can read/write great
+//	while (periods.good())
+//	{
+//		periods >> aux1;
+//		periodsreq.push_back(aux1);
+//	}
+//
+//#if 0
+//	for (size_t i = 0; i < periodsreq.size(); i++)
+//	{
+//		cout << periodsreq[i] << endl;
+//	}
+//
+//#endif // 0
+//
+//	for (size_t i = 0; i < periodsreq.size(); i++) // Changing periods to frequencies
+//	{
+//		aux2 = 1 / periodsreq.at(i);
+//		frequenciesreq.push_back(aux2);
+//	}
+//#if 0
+//	cout << periodsreq.size() << " " << frequenciesreq.size() << endl;
+//	for (size_t i = 0; i < frequenciesreq.size(); i++)
+//	{
+//		cout << frequenciesreq[i] << endl;
+//	}
+//#endif // 1
+//
+//
+//	// ---------------------------------- ASKING FOR DATA ------------------------------------------------
+//
+//	STRESS = 280.0;
+//	STRESSI = STRESS;
+//
+//	//::std::cout << "Enter the minimum magnitude, maximum and the number of intermediate quantities: " << endl;
+//	//cin >> MINF >> MSUP >> NMAG;
+//	MINF = 3.5;
+//	MSUP = 8.0;
+//	NMAG = 10;
+//	//cout << "Enter the minimum distance, maximum and the number of intermediate distances: " << endl;
+//	//cin >> RINF >> RSUP >> NRAD;
+//	RINF = 1.0;
+//	RSUP = 1000.0;
+//	NRAD = 10000;
+//
+//	// -------------------------------------- FINISH ------------------------------------------------------
+//
+//
+//
+//	//-------------------------------- GENRATING COEFICENTS -----------------------------------------------
+//	Matrix results(periodsreq.size());//Vertical size of Matrix
+//	Matrix valuesT7(periodsreq.size());//Vertical size of Matrix
+//	Matrix valuesT8(periodsreq.size());//Vertical size of Matrix
+//	Matrix PGA(NMAG);
+//	Vector Soil(NRAD);
+//	Matrix table6(25);//AB06, Table 6
+//	Matrix table7(25);//AB06, Table 7
+//	Matrix table8(23);//AB06, Table 8
+//	Matrix table9(25);//AB06, Table 9
+//	Vector coficentesreq(10);
+//	Vector coeficentsSF2(3);
+//	Vector coeficentsS(3);
+//	Vector bnl(periodsreq.size());
+//	int index1, index2;//Positions to interpolate
+//
+//	if (V30 >= 2000.0)
+//	{
+//
+//		// Open our file tabla6.txt
+//		ifstream inFile1;
+//		inFile1.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/table6.txt");
+//
+//
+//		Vector f6(25);// Vector of table 6's frequencies
+//		Vector coef(12);// Vector of table 6's coeficents 
+//						// If we can read/write great
+//		if (inFile1.good())
+//		{
+//			for (size_t i = 0; i < 25; i++) {
+//				for (size_t j = 0; j < 12; j++)	inFile1 >> coef.at(j);
+//				table6.at(i) = coef;
+//			}
+//		}
+//
+//		for (size_t i = 0; i < 25; i++)
+//			f6.at(i) = table6.at(i).at(0);
+//
+//
+//
+//		// Plot table, only if is necessary 1 = show, 2 = hide
+//#if 0
+//		cout << "Tabla 6:" << endl;
+//		for (size_t i = 0; i < 25; i++) {
+//			for (size_t j = 0; j < 12; j++)	cout << setw(WIDTH) << table6.at(i).at(j) << " ";
+//			cout << endl;
+//		}
+//
+//		cout << endl;
+//		//------------------------------------------------------------------------------------------------------------------OK
+//
+//		for (size_t i = 0; i < frequenciesreq.size(); i++)
+//			cout << frequenciesreq.at(i) << endl;
+//#endif // 1
+//
+//		for (size_t k = 0; k < frequenciesreq.size(); k++)
+//		{
+//			double nearfrequency = 0.0;
+//
+//			double required = frequenciesreq[k];
+//			if (required == 100) {
+//
+//				if (required == 100)
+//				{
+//					for (size_t j = 0; j < 10; j++)	coficentesreq.at(j) = table6.at(24).at(j + 2);
+//					results.at(k) = coficentesreq;
+//				}
+//
+//			}
+//			else
+//			{
+//				nearfrequency = closest(f6, required);
+//				std::vector<double>::iterator it = std::find(f6.begin(), f6.end(), nearfrequency);
+//				index1 = std::distance(f6.begin(), it);
+//
+//				if ((nearfrequency <= required))
+//				{
+//					if (index1 == 24) { index2 = index1 - 1; }
+//					else { index2 = index1 + 1; }
+//				}
+//
+//				if ((nearfrequency >= required))
+//				{
+//					if (index1 == 0) { index2 = index1 + 1; }
+//					else { index2 = index1 - 1; }
+//				}
+//
+//
+//#if 0
+//				cout << index1 << " " << index2 << endl;
+//#endif // 0
+//
+//				for (size_t j = 0; j < 10; j++)
+//				{
+//					coficentesreq.at(j) = (((frequenciesreq[k] - table6.at(index1).at(0))*table6.at(index2).at(j + 2)) + ((table6.at(index2).at(0) - frequenciesreq[k])*table6.at(index1).at(j + 2))) / (table6.at(index2).at(0) - table6.at(index1).at(0));
+//				}
+//				results.at(k) = coficentesreq;
+//			}
+//		}
+//
+//		//------------------------------------------------------------------------------------------------------------------OK
+//#if 1
+//		ofstream coefT6; // Archive
+//		coefT6.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/resultsT6.dat");
+//		coefT6 << "#Coefficents for differents frequencies (Table6 - Atkinson and Boore, 2006)" << endl;
+//		coefT6 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
+//
+//		for (size_t i = 0; i < periodsreq.size(); i++)
+//		{
+//
+//			for (size_t j = 0; j < 10; j++)
+//				coefT6 << setw(WIDTH) << setprecision(4) << results.at(i).at(j);
+//			coefT6 << endl;
+//		}
+//
+//
+//#endif // 0
+//
+//	}
+//	else {
+//		//TABLE 9
+//		// Open our file tabla9.txt
+//		ifstream inFile2;
+//		inFile2.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/table9.txt");
+//
+//
+//		Vector f9(25);// Vector of table 9's frequencies
+//		Vector coef(12);// Vector of table 9's coeficents 
+//						// If we can read/write great
+//		if (inFile2.good())
+//		{
+//			for (size_t i = 0; i < 25; i++) {
+//				for (size_t j = 0; j < 12; j++)	inFile2 >> coef.at(j);
+//				table9.at(i) = coef;
+//			}
+//		}
+//
+//		for (size_t i = 0; i < 25; i++)
+//			f9.at(i) = table9.at(i).at(0);
+//
+//
+//
+//		// Plot table, only if is necessary 1 = show, 2 = hide
+//#if 0
+//		cout << "Tabla 9:" << endl;
+//		for (size_t i = 0; i < 25; i++) {
+//			for (size_t j = 0; j < 12; j++)	cout << setw(WIDTH) << table9.at(i).at(j) << " ";
+//			cout << endl;
+//		}
+//
+//		cout << endl;
+//		//------------------------------------------------------------------------------------------------------------------OK
+//
+//		for (size_t i = 0; i < frequenciesreq.size(); i++)
+//			cout << frequenciesreq.at(i) << endl;
+//#endif // 1
+//
+//		for (size_t k = 0; k < frequenciesreq.size(); k++)
+//		{
+//			double nearfrequency = 0.0;
+//
+//			double required = frequenciesreq[k];
+//			if (required == 100) {
+//
+//				if (required == 100)
+//				{
+//					for (size_t j = 0; j < 10; j++)	coficentesreq.at(j) = table9.at(24).at(j + 2);
+//					results.at(k) = coficentesreq;
+//				}
+//
+//			}
+//			else
+//			{
+//				nearfrequency = closest(f9, required);
+//				std::vector<double>::iterator it = std::find(f9.begin(), f9.end(), nearfrequency);
+//				index1 = std::distance(f9.begin(), it);
+//
+//				if ((nearfrequency <= required))
+//				{
+//					if (index1 == 24) { index2 = index1 - 1; }
+//					else { index2 = index1 + 1; }
+//				}
+//
+//				if ((nearfrequency >= required))
+//				{
+//					if (index1 == 0) { index2 = index1 + 1; }
+//					else { index2 = index1 - 1; }
+//				}
+//
+//
+//#if 0
+//				cout << index1 << " " << index2 << endl;
+//#endif // 0
+//
+//				for (size_t j = 0; j < 10; j++)
+//				{
+//					coficentesreq.at(j) = (((frequenciesreq[k] - table9.at(index1).at(0))*table9.at(index2).at(j + 2)) + ((table9.at(index2).at(0) - frequenciesreq[k])*table9.at(index1).at(j + 2))) / (table9.at(index2).at(0) - table9.at(index1).at(0));
+//				}
+//				results.at(k) = coficentesreq;
+//			}
+//		}
+//
+//		//------------------------------------------------------------------------------------------------------------------OK
+//#if 1
+//		ofstream coefT9; // Archive
+//		coefT9.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/resultsT9.dat");
+//		coefT9 << "#Coefficents for differents frequencies (Table9 - Atkinson and Boore, 2006)" << endl;
+//		coefT9 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
+//
+//		for (size_t i = 0; i < periodsreq.size(); i++)
+//		{
+//
+//			for (size_t j = 0; j < 10; j++)
+//				coefT9 << setw(WIDTH) << setprecision(4) << results.at(i).at(j);
+//			coefT9 << endl;
+//		}
+//
+//
+//#endif // 0
+//
+//		// TABLE 8
+//		// Open our file tabla8.txt
+//		ifstream inFile3;
+//		inFile3.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/table8.txt");
+//
+//
+//		Vector f8(23);// Vector of table 8's frequencies
+//		Vector coeficentsT8(4);// Vector of table 8's coeficents 
+//							   // If we can read/write great
+//		if (inFile3.good())
+//		{
+//			for (size_t i = 0; i < 23; i++) {
+//				for (size_t j = 0; j < 4; j++)	inFile3 >> coeficentsT8.at(j);
+//				table8.at(i) = coeficentsT8;
+//			}
+//		}
+//
+//		for (size_t i = 0; i < 23; i++)
+//			f8.at(i) = table8.at(i).at(0);
+//
+//
+//
+//		// Plot table, only if is necessary 1 = show, 2 = hide
+//#if 0
+//		cout << "Tabla 8:" << endl;
+//		for (size_t i = 0; i < 22; i++) {
+//			for (size_t j = 0; j < 4; j++)	cout << setw(WIDTH) << table8.at(i).at(j) << " ";
+//			cout << endl;
+//		}
+//
+//		cout << endl;
+//		//------------------------------------------------------------------------------------------------------------------OK
+//
+//		for (size_t i = 0; i < frequenciesreq.size(); i++)
+//			cout << frequenciesreq.at(i) << endl;
+//#endif // 0
+//
+//		for (size_t k = 0; k < frequenciesreq.size(); k++)
+//		{
+//			double nearfrequency = 0.0;
+//
+//			double required = frequenciesreq[k];
+//			if (required == 100) {
+//
+//				if (required == 100)
+//				{
+//					for (size_t j = 0; j < 3; j++)	coeficentsS.at(j) = table8.at(22).at(j + 1);
+//					valuesT8.at(k) = coeficentsS;
+//				}
+//
+//			}
+//			else
+//			{
+//				nearfrequency = closest(f8, required);
+//				std::vector<double>::iterator it = std::find(f8.begin(), f8.end(), nearfrequency);
+//				index1 = std::distance(f8.begin(), it);
+//
+//				if ((nearfrequency <= required))
+//				{
+//					if (index1 == 22) { index2 = index1 - 1; }
+//					else { index2 = index1 + 1; }
+//				}
+//
+//				if ((nearfrequency >= required))
+//				{
+//					if (index1 == 0) { index2 = index1 + 1; }
+//					else { index2 = index1 - 1; }
+//				}
+//
+//
+//#if 0
+//				cout << index1 << " " << index2 << endl;
+//#endif // 0
+//
+//				for (size_t j = 0; j < 3; j++)
+//				{
+//					coeficentsS.at(j) = (((frequenciesreq[k] - table8.at(index1).at(0))*table8.at(index2).at(j + 1)) + ((table8.at(index2).at(0) - frequenciesreq[k])*table8.at(index1).at(j + 1))) / (table8.at(index2).at(0) - table8.at(index1).at(0));
+//				}
+//				valuesT8.at(k) = coeficentsS;
+//			}
+//		}
+//
+//		//------------------------------------------------------------------------------------------------------------------OK
+//
+//		ofstream coefT8; // Archive
+//		coefT8.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/resultsT8.dat");
+//		coefT8 << "#Coefficents for differents frequencies (Table8 - Atkinson and Boore, 2006)" << endl;
+//		coefT8 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
+//
+//		for (size_t i = 0; i < periodsreq.size(); i++)
+//		{
+//
+//			for (size_t j = 0; j < 3; j++)
+//				coefT8 << setw(WIDTH) << setprecision(4) << valuesT8.at(i).at(j);
+//			coefT8 << endl;
+//		}
+//
+//	}
+//
+//	//--------------------------------------- FINISH -------------------------------------------------------
+//
+//	//-------------------------- CHECKING ----------------------------------------
+//#if 0
+//	for (size_t i = 0; i < frequenciesreq.size(); i++)
+//	{
+//		for (size_t j = 0; j < 10; j++)
+//			cout << setw(WIDTH) << setprecision(4) << results.at(i).at(j);
+//		cout << endl;
+//	}
+//#endif // 0
+//	//----------------------- FINISH CHECKING -------------------------------------
+//
+//	//---------------------------- DEFINING SF2 ---------------------------------
+//#if 1
+//	// Open our file tabla7.txt
+//	ifstream inFile4;
+//	inFile4.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/table7.txt");
+//
+//
+//	Vector f7(25);// Vector of table 7's frequencies
+//	Vector coeficentsT7(4);// Vector of table 7's coeficents 
+//						   // If we can read/write great
+//	if (inFile4.good())
+//	{
+//		for (size_t i = 0; i < 25; i++) {
+//			for (size_t j = 0; j < 4; j++)	inFile4 >> coeficentsT7.at(j);
+//			table7.at(i) = coeficentsT7;
+//		}
+//	}
+//
+//	for (size_t i = 0; i < 25; i++)
+//		f7.at(i) = table7.at(i).at(0);
+//
+//
+//
+//	// Plot table, only if is necessary 1 = show, 2 = hide
+//#if 0
+//	cout << "Tabla 7:" << endl;
+//	for (size_t i = 0; i < 25; i++) {
+//		for (size_t j = 0; j < 4; j++)	cout << setw(WIDTH) << table7.at(i).at(j) << " ";
+//		cout << endl;
+//	}
+//
+//	cout << endl;
+//	//------------------------------------------------------------------------------------------------------------------OK
+//
+//	for (size_t i = 0; i < frequenciesreq.size(); i++)
+//		cout << frequenciesreq.at(i) << endl;
+//#endif // 0
+//
+//	for (size_t k = 0; k < frequenciesreq.size(); k++)
+//	{
+//		double nearfrequency = 0.0;
+//
+//		double required = frequenciesreq[k];
+//		if (required == 100) {
+//
+//			if (required == 100)
+//			{
+//				for (size_t j = 0; j < 3; j++)	coeficentsSF2.at(j) = table7.at(24).at(j + 1);
+//				valuesT7.at(k) = coeficentsSF2;
+//			}
+//
+//		}
+//		else
+//		{
+//			nearfrequency = closest(f7, required);
+//			std::vector<double>::iterator it = std::find(f7.begin(), f7.end(), nearfrequency);
+//			index1 = std::distance(f7.begin(), it);
+//
+//			if ((nearfrequency <= required))
+//			{
+//				if (index1 == 24) { index2 = index1 - 1; }
+//				else { index2 = index1 + 1; }
+//			}
+//
+//			if ((nearfrequency >= required))
+//			{
+//				if (index1 == 0) { index2 = index1 + 1; }
+//				else { index2 = index1 - 1; }
+//			}
+//
+//
+//#if 0
+//			cout << index1 << " " << index2 << endl;
+//#endif // 0
+//
+//			for (size_t j = 0; j < 3; j++)
+//			{
+//				coeficentsSF2.at(j) = (((frequenciesreq[k] - table7.at(index1).at(0))*table7.at(index2).at(j + 1)) + ((table7.at(index2).at(0) - frequenciesreq[k])*table7.at(index1).at(j + 1))) / (table7.at(index2).at(0) - table7.at(index1).at(0));
+//			}
+//			valuesT7.at(k) = coeficentsSF2;
+//		}
+//	}
+//
+//	//------------------------------------------------------------------------------------------------------------------OK
+//
+//	ofstream coefT7; // Archive
+//	coefT7.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/resultsT7.dat");
+//	coefT7 << "#Coefficents for differents frequencies (Table7 - Atkinson and Boore, 2006)" << endl;
+//	coefT7 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
+//
+//	for (size_t i = 0; i < periodsreq.size(); i++)
+//	{
+//
+//		for (size_t j = 0; j < 3; j++)
+//			coefT7 << setw(WIDTH) << setprecision(4) << valuesT7.at(i).at(j);
+//		coefT7 << endl;
+//	}
+//
+//#endif // 0
+//	//------------------------- FINISH DEFINITION -------------------------------
+//
+//
+//	//---------------------- GENERATING VALUES -------------------------------
+//
+//	Vector aceleraciones(NRAD);
+//	Vector distances(NRAD);
+//	Vector magnitudes(NMAG);
+//	DMAG = (MSUP - MINF) / (NMAG - 1);
+//	DLRAD = (log10(RSUP) - log10(RINF)) / (NRAD - 1);
+//
+//
+//	for (size_t i = 0; i < NRAD; i++)
+//	{
+//		distances[i] = pow(10, log10(RINF) + i*DLRAD);
+//	}
+//	distances[NRAD - 1] = RSUP; //Changing last value
+//	for (size_t i = 0; i < NMAG; i++)
+//	{
+//		magnitudes[i] = MINF + i*DMAG;
+//	}
+//	magnitudes[NMAG - 1] = MSUP;//Changing last value
+//
+//								//---------------------------- FINISH -----------------------------------
+//
+//								//---------------------------- OUTPUT -----------------------------------
+//								//Value Type of distance
+//								//	1 (or blank) Focal
+//								//	2 Epicentral
+//								//	3 Joyner and Boore
+//								//	4 Closest to rupture area(Rrup)
+//	TYPEMD = 4;
+//#if 0
+//	cout << "MAGNITUDES:" << endl;
+//	for (size_t i = 0; i < NMAG; i++)
+//	{
+//		cout << magnitudes[i] << endl;
+//	}
+//	cout << endl;
+//#endif // 0
+//#if 0
+//	cout << "DISTANCES:" << endl;
+//	for (size_t i = 0; i < NRAD; i++)
+//	{
+//		cout << distances[i] << endl;
+//	}
+//	cout << endl;
+//#endif // 0
+//
+//	if ((V30 >= 2000.0) || (V30 == 760.0)) {
+//		S = 0.0;
+//		//OUTPUT 1
+//		ofstream ab06;
+//		ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/AB11.atn");
+//
+//		ab06 << setprecision(PRECISION2);
+//		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Description" << setw(WIDTH) << ": Sample attenuation file constructed for illustration purposes (2008)" << endl;	
+//		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Units" << setw(WIDTH) << ": cm/sec/sec" << endl;
+//		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Distribution" << setw(WIDTH) << ": 2" << endl;
+//		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Dimension" << setw(WIDTH) << ": Aceleration" << endl;
+//		ab06 << setw(WIDTH) << MINF << setw(WIDTH) << MSUP << setw(WIDTH) << NMAG << endl;
+//		ab06 << setw(WIDTH) << RINF << setw(WIDTH) << RSUP << setw(WIDTH) << NRAD << setw(WIDTH) << TYPEMD << endl;
+//
+//		ab06 << setprecision(PRECISION);
+//
+//		for (size_t i = 0; i < periodsreq.size(); i++)//Loop over periods
+//		{
+//			ab06 << setw(WIDTH) << periodsreq.at(i) << setw(WIDTH) << sigma << setw(WIDTH) << AMAX << endl;
+//			for (size_t j = 0; j < NMAG; j++)//Loop over magnitudes
+//			{
+//				if (magnitudes[j] >= 5.0)
+//				{
+//					STRESS = pow(10.0, 3.45 - 0.2*magnitudes[j]);
+//				}
+//				else
+//				{
+//					STRESS = STRESSI;
+//				}
+//				LOG10SF2 = min((0.20), (0.05 + (0.15)*(max((magnitudes[j] - (valuesT7.at(i).at(1))), 0.0)) / ((valuesT7.at(i).at(2)) - (valuesT7.at(i).at(1)))));
+//				FACTOR = log10(STRESS / 140.0) / log10(2);
+//#if 0
+//				cout << magnitudes[j] << " " << LOG10SF2 << endl;
+//#endif // 0
+//
+//				for (size_t k = 0; k < NRAD; k++)//Loop over coeficents
+//				{
+//					Rcd = distances[k];
+//					f0 = max(log10(R0 / Rcd), 0.0);
+//					f1 = min(log10(Rcd), log10(R1));
+//					f2 = max(log10(Rcd / R2), 0.0);
+//					A = results.at(i).at(0);
+//					B = results.at(i).at(1)*magnitudes.at(j);
+//					C = results.at(i).at(2)*(pow(magnitudes.at(j), 2.0));
+//					D = (results.at(i).at(3) + results.at(i).at(4)*magnitudes.at(j))*f1;
+//					E = (results.at(i).at(5) + results.at(i).at(6)*magnitudes.at(j))*f2;
+//					F = (results.at(i).at(7) + results.at(i).at(8)*magnitudes.at(j))*f0;
+//					G = results.at(i).at(9)*Rcd;
+//					aceleraciones[k] = pow(10.0, A + B + C + D + E + F + G + FACTOR*LOG10SF2*S);
+//
+//					ab06 << setw(WIDTH) << aceleraciones[k];//Saving values
+//				}
+//				ab06 << endl;
+//			}
+//		}
+//	}
+//	else {
+//		for (size_t i = 0; i < bnl.size(); i++)
+//		{
+//			if (V30 <= 180) {
+//				bnl[i] = valuesT8.at(i).at(1);
+//			}
+//			else if ((V30 > 180.0) && (V30 <= 300.0)) {
+//				bnl[i] = ((valuesT8.at(i).at(1)) - (valuesT8.at(i).at(2)))*log(V30 / 300.0) / log(180.0 / 300.0) + (valuesT8.at(i).at(2));
+//			}
+//			else if ((V30 > 300.0) && (V30 <= 760.0)) {
+//				bnl[i] = (valuesT8.at(i).at(2))*log(V30 / 760.0) / log(300.0 / 760.0);
+//
+//			}
+//			else if (V30 > 760) {
+//				bnl[i] = 0.0;
+//			}
+//
+//		}
+//
+//#if 0
+//
+//		for (size_t i = 0; i < bnl.size(); i++)
+//		{
+//			cout << setw(PRECISION) << i << setw(PRECISION) << bnl[i] << endl;
+//		}
+//#endif // 0
+//
+//
+//		for (size_t j = 0; j < NMAG; j++)//Loop over magnitudes
+//		{
+//
+//			for (size_t k = 0; k < NRAD; k++)//Loop over coeficents
+//			{
+//				Rcd = distances[k];
+//				f0 = max(log10(R0 / Rcd), 0.0);
+//				f1 = min(log10(Rcd), log10(R1));
+//				f2 = max(log10(Rcd / R2), 0.0);
+//				A = 0.523;
+//				B = 0.969*magnitudes.at(j);
+//				C = -0.062*(pow(magnitudes.at(j), 2.0));
+//				D = (-2.44 + 0.147*magnitudes.at(j))*f1;
+//				E = (-2.34 + 0.191*magnitudes.at(j))*f2;
+//				F = (-0.087 - 0.0829*magnitudes.at(j))*f0;
+//				G = -0.00063*Rcd;
+//				aceleraciones[k] = pow(10.0, A + B + C + D + E + F + G + 0);//FACTOR*LOG10SF2
+//			}
+//			PGA[j] = aceleraciones;
+//		}
+//#if 0
+//		for (size_t i = 0; i < NMAG; i++)
+//		{
+//			for (size_t j = 0; j < NRAD; j++)//Loop over coeficents
+//			{
+//				cout << setw(WIDTH) << PGA.at(i).at(j);
+//			}
+//			cout << endl;
+//		}
+//#endif // 0
+//
+//
+//
+//		// GETTING S VALUE
+//#if 1
+//		ofstream soilsvalue;
+//		soilsvalue.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/soilsvalue.atn");
+//
+//		for (size_t i = 0; i < periodsreq.size(); i++)
+//		{
+//			for (size_t j = 0; j < NMAG; j++) {
+//
+//				for (size_t k = 0; k < NRAD; k++) {
+//					//cout << "DATA" << endl;
+//					//cout << "Blin  "<< valuesT8.at(i).at(0) << endl;
+//					//cout << "PGA  " << PGA.at(j).at(k) << endl;
+//					//cout << "Bnl  " << bnl.at(i) << endl;
+//					if (PGA.at(j).at(k) <= 60)
+//					{
+//						Soil[k] = log10(pow(e, valuesT8.at(i).at(0)*log(V30 / 760.0) + bnl.at(i)*log(60.0 / 100.0)));
+//					}
+//					else {
+//
+//						Soil[k] = log10(pow(e, valuesT8.at(i).at(0)*log(V30 / 760.0) + bnl.at(i) * log((PGA.at(j).at(k)) / 100.0)));
+//
+//					}
+//					soilsvalue << setw(WIDTH) << Soil[k];
+//				}
+//
+//				soilsvalue << endl;
+//			}
+//			soilsvalue << endl;
+//			soilsvalue << endl;
+//		}
+//#endif // 0
+//
+//		//
+//
+//
+//
+//		//OUTPUT 2
+//		ofstream ab06;
+//		ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/AB11.atn");
+//
+//		ab06 << setprecision(PRECISION2);
+//		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Description" << setw(WIDTH) << ": Sample attenuation file constructed for illustration purposes (2008)" << endl;	
+//		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Units" << setw(WIDTH) << ": cm/sec/sec" << endl;
+//		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Distribution" << setw(WIDTH) << ": 2" << endl;
+//		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Dimension" << setw(WIDTH) << ": Aceleration" << endl;
+//		ab06 << setw(WIDTH) << MINF << setw(WIDTH) << MSUP << setw(WIDTH) << NMAG << endl;
+//		ab06 << setw(WIDTH) << RINF << setw(WIDTH) << RSUP << setw(WIDTH) << NRAD << setw(WIDTH) << TYPEMD << endl;
+//
+//		ab06 << setprecision(PRECISION);
+//
+//		for (size_t i = 0; i < periodsreq.size(); i++)//Loop over periods
+//		{
+//			ab06 << setw(WIDTH) << periodsreq.at(i) << setw(WIDTH) << sigma << setw(WIDTH) << AMAX << endl;
+//			for (size_t j = 0; j < NMAG; j++)//Loop over magnitudes
+//			{
+//				if (magnitudes[j] >= 5.0)
+//				{
+//					STRESS = pow(10.0, 3.45 - 0.2*magnitudes[j]);
+//				}
+//				else
+//				{
+//					STRESS = STRESSI;
+//				}
+//				LOG10SF2 = min((0.20), (0.05 + (0.15)*(max((magnitudes[j] - (valuesT7.at(i).at(1))), 0.0)) / ((valuesT7.at(i).at(2)) - (valuesT7.at(i).at(1)))));
+//				FACTOR = log10(STRESS / 140.0) / log10(2);
+//
+//				for (size_t k = 0; k < NRAD; k++)//Loop over coeficents
+//				{
+//					if (PGA.at(j).at(k) <= 60)
+//					{
+//						S = log10(pow(e, valuesT8.at(i).at(0)*log(V30 / 760.0) + bnl.at(i)*log(60.0 / 100.0)));
+//					}
+//					else {
+//
+//						S = log10(pow(e, valuesT8.at(i).at(0)*log(V30 / 760.0) + bnl.at(i) * log((PGA.at(j).at(k)) / 100.0)));
+//
+//					}
+//					//cout << S << endl;
+//					Rcd = distances[k];
+//					f0 = max(log10(R0 / Rcd), 0.0);
+//					f1 = min(log10(Rcd), log10(R1));
+//					f2 = max(log10(Rcd / R2), 0.0);
+//					A = results.at(i).at(0);
+//					B = results.at(i).at(1)*magnitudes.at(j);
+//					C = results.at(i).at(2)*(pow(magnitudes.at(j), 2.0));
+//					D = (results.at(i).at(3) + results.at(i).at(4)*magnitudes.at(j))*f1;
+//					E = (results.at(i).at(5) + results.at(i).at(6)*magnitudes.at(j))*f2;
+//					F = (results.at(i).at(7) + results.at(i).at(8)*magnitudes.at(j))*f0;
+//					G = results.at(i).at(9)*Rcd;
+//					aceleraciones[k] = pow(10.0, A + B + C + D + E + F + G + FACTOR*LOG10SF2*S);
+//
+//					ab06 << setw(WIDTH) << aceleraciones[k];//Saving values
+//				}
+//				ab06 << endl;
+//			}
+//		}
+//
+//	}
+//
+//	system("pause");
+//	return 0;
+//}
