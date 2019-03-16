@@ -13,6 +13,9 @@
 //#ifndef WIDTH	
 //#define WIDTH 16
 //#endif // !WIDTH
+//#ifndef PGA
+//#define PGA 100.0
+//#endif // !PGA
 //#ifndef PRECISION
 //#define PRECISION 8
 //#endif // !PRECISION
@@ -22,10 +25,6 @@
 //#ifndef e
 //#define e 2.7182818284590
 //#endif // !e
-//#ifndef PGA
-//#define PGA 100.0
-//#endif // !PGA
-//
 //
 //
 //
@@ -41,7 +40,7 @@
 //
 //	typedef std::vector<vector<double>> Matrix;
 //	typedef std::vector<double> Vector;
-//	double MINF; //Lower limit og magnitude given in the table
+//	double MINF; //Lower limit og magnitude given in the tabl
 //	double MSUP; //Upper limit of magnitude given in the table
 //	int NMAG; //Number of magnitudes for which intensity is given
 //	double DMAG;
@@ -54,7 +53,7 @@
 //	double sigma = 0.7;
 //	double AMAX = 0; //Type of stadistic distribution
 //	double V30 = 2000;//Shear wave velocity
-//	double STRESS;//Stress asked
+//	double STRESS = 280;
 //	double FACTOR;//Stress adjustment factor
 //	double LOG10SF2;//Adjustment
 //					//--- ATTENUATION VARIABLES ----
@@ -75,7 +74,7 @@
 //							   //-------------------------------
 //
 //	ifstream periods;
-//	periods.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab11/periods.txt");
+//	periods.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab06/periods.txt");
 //
 //	//If we can read/write great
 //	while (periods.good())
@@ -108,13 +107,11 @@
 //
 //	// ---------------------------------- ASKING FOR DATA ------------------------------------------------
 //
-//	STRESS = 280.0;
-//
 //	//::std::cout << "Enter the minimum magnitude, maximum and the number of intermediate quantities: " << endl;
 //	//cin >> MINF >> MSUP >> NMAG;
 //	MINF = 3.5;
 //	MSUP = 8.0;
-//	NMAG = 10;
+//	NMAG = 16;
 //	//cout << "Enter the minimum distance, maximum and the number of intermediate distances: " << endl;
 //	//cin >> RINF >> RSUP >> NRAD;
 //	RINF = 1.0;
@@ -146,7 +143,7 @@
 //
 //		// Open our file tabla6.txt
 //		ifstream inFile1;
-//		inFile1.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab11/table6.txt");
+//		inFile1.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab06/table6.txt");
 //
 //
 //		Vector f6(25);// Vector of table 6's frequencies
@@ -186,11 +183,10 @@
 //
 //			double required = frequenciesreq[k];
 //			if (required > PGA) {
-//
+//				
 //					for (size_t j = 0; j < 10; j++)	coficentesreq.at(j) = table6.at(24).at(j + 2);
 //					results.at(k) = coficentesreq;
-//				
-//
+//					
 //			}
 //			else
 //			{
@@ -226,7 +222,7 @@
 //		//------------------------------------------------------------------------------------------------------------------OK
 //#if 1
 //		ofstream coefT6; // Archive
-//		coefT6.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/resultsT6.dat");
+//		coefT6.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab06/resultsT6.dat");
 //		coefT6 << "#Coefficents for differents frequencies (Table6 - Atkinson and Boore, 2006)" << endl;
 //		coefT6 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
 //
@@ -246,7 +242,7 @@
 //		//TABLE 9
 //		// Open our file tabla9.txt
 //		ifstream inFile2;
-//		inFile2.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab11/table9.txt");
+//		inFile2.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab06/table9.txt");
 //
 //
 //		Vector f9(25);// Vector of table 9's frequencies
@@ -325,7 +321,7 @@
 //		//------------------------------------------------------------------------------------------------------------------OK
 //#if 1
 //		ofstream coefT9; // Archive
-//		coefT9.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/resultsT9.dat");
+//		coefT9.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab06/resultsT9.dat");
 //		coefT9 << "#Coefficents for differents frequencies (Table9 - Atkinson and Boore, 2006)" << endl;
 //		coefT9 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
 //
@@ -343,7 +339,7 @@
 //		// TABLE 8
 //		// Open our file tabla8.txt
 //		ifstream inFile3;
-//		inFile3.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab11/table8.txt");
+//		inFile3.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab06/table8.txt");
 //
 //
 //		Vector f8(23);// Vector of table 8's frequencies
@@ -383,10 +379,10 @@
 //
 //			double required = frequenciesreq[k];
 //			if (required > PGA) {
-//
+//				
 //					for (size_t j = 0; j < 3; j++)	coeficentsS.at(j) = table8.at(22).at(j + 1);
 //					valuesT8.at(k) = coeficentsS;
-//				
+//
 //			}
 //			else
 //			{
@@ -422,7 +418,7 @@
 //		//------------------------------------------------------------------------------------------------------------------OK
 //
 //		ofstream coefT8; // Archive
-//		coefT8.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/resultsT8.dat");
+//		coefT8.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab06/resultsT8.dat");
 //		coefT8 << "#Coefficents for differents frequencies (Table8 - Atkinson and Boore, 2006)" << endl;
 //		coefT8 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
 //
@@ -453,7 +449,7 @@
 //#if 1
 //	// Open our file tabla7.txt
 //	ifstream inFile4;
-//	inFile4.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab11/table7.txt");
+//	inFile4.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab06/table7.txt");
 //
 //
 //	Vector f7(25);// Vector of table 7's frequencies
@@ -532,7 +528,7 @@
 //	//------------------------------------------------------------------------------------------------------------------OK
 //
 //	ofstream coefT7; // Archive
-//	coefT7.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/resultsT7.dat");
+//	coefT7.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab06/resultsT7.dat");
 //	coefT7 << "#Coefficents for differents frequencies (Table7 - Atkinson and Boore, 2006)" << endl;
 //	coefT7 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
 //
@@ -598,7 +594,7 @@
 //		S = 0.0;
 //		//OUTPUT 1
 //		ofstream ab06;
-//		ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/ab11.atn");
+//		ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab06/ab06_adj.atn");
 //
 //		ab06 << setprecision(PRECISION2);
 //		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Description" << setw(WIDTH) << ": Sample attenuation file constructed for illustration purposes (2008)" << endl;	
@@ -615,11 +611,6 @@
 //			ab06 << setw(WIDTH) << periodsreq.at(i) << setw(WIDTH) << sigma << setw(WIDTH) << AMAX << endl;
 //			for (size_t j = 0; j < NMAG; j++)//Loop over magnitudes
 //			{
-//				if (magnitudes[j] >= 5.0)
-//				{
-//					STRESS = pow(10.0, 3.45 - 0.2*magnitudes[j]);
-//				}
-//
 //				LOG10SF2 = min((0.20), (0.05 + (0.15)*(max((magnitudes[j] - (valuesT7.at(i).at(1))), 0.0)) / ((valuesT7.at(i).at(2)) - (valuesT7.at(i).at(1)))));
 //				FACTOR = log10(STRESS / 140.0) / log10(2);
 //#if 0
@@ -639,7 +630,7 @@
 //					E = (results.at(i).at(5) + results.at(i).at(6)*magnitudes.at(j))*f2;
 //					F = (results.at(i).at(7) + results.at(i).at(8)*magnitudes.at(j))*f0;
 //					G = results.at(i).at(9)*Rcd;
-//					aceleraciones[k] = pow(10.0, A + B + C + D + E + F + G + FACTOR*LOG10SF2+S);
+//					aceleraciones[k] = pow(10.0, A + B + C + D + E + F + G + S+FACTOR*LOG10SF2);
 //
 //					ab06 << setw(WIDTH) << aceleraciones[k];//Saving values
 //				}
@@ -709,9 +700,9 @@
 //
 //
 //		// GETTING S VALUE
-//#if 1
+//#if 0
 //		ofstream soilsvalue;
-//		soilsvalue.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/soilsvalue.atn");
+//		soilsvalue.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab06/soilsvalue.atn");
 //
 //		for (size_t i = 0; i < periodsreq.size(); i++)
 //		{
@@ -747,7 +738,7 @@
 //
 //		//OUTPUT 2
 //		ofstream ab06;
-//		ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/ab11.atn");
+//		ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab06/ab06_adj.atn");
 //
 //		ab06 << setprecision(PRECISION2);
 //		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Description" << setw(WIDTH) << ": Sample attenuation file constructed for illustration purposes (2008)" << endl;	
@@ -764,10 +755,6 @@
 //			ab06 << setw(WIDTH) << periodsreq.at(i) << setw(WIDTH) << sigma << setw(WIDTH) << AMAX << endl;
 //			for (size_t j = 0; j < NMAG; j++)//Loop over magnitudes
 //			{
-//				if (magnitudes[j] >= 5.0)
-//				{
-//					STRESS = pow(10.0, 3.45 - 0.2*magnitudes[j]);
-//				}
 //				LOG10SF2 = min((0.20), (0.05 + (0.15)*(max((magnitudes[j] - (valuesT7.at(i).at(1))), 0.0)) / ((valuesT7.at(i).at(2)) - (valuesT7.at(i).at(1)))));
 //				FACTOR = log10(STRESS / 140.0) / log10(2);
 //
@@ -794,7 +781,7 @@
 //					E = (results.at(i).at(5) + results.at(i).at(6)*magnitudes.at(j))*f2;
 //					F = (results.at(i).at(7) + results.at(i).at(8)*magnitudes.at(j))*f0;
 //					G = results.at(i).at(9)*Rcd;
-//					aceleraciones[k] = pow(10.0, A + B + C + D + E + F + G + S+FACTOR*LOG10SF2);
+//					aceleraciones[k] = pow(10.0, A + B + C + D + E + F + G + S+ FACTOR*LOG10SF2);
 //
 //					ab06 << setw(WIDTH) << aceleraciones[k];//Saving values
 //				}
