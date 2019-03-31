@@ -66,7 +66,7 @@
 //	//-------------------------------
 //
 //	ifstream periods;
-//	periods.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/silva02/periods.txt");
+//	periods.open("D:/Github/aninanya/Article/Attenuation-laws/data/silva02/periods.txt");
 //
 //	//If we can read/write great
 //	while (periods.good())
@@ -155,7 +155,7 @@
 //	switch (OPTION)
 //	{
 //	case 'A':
-//		silva2002.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/silva02/table3.txt");
+//		silva2002.open("D:/Github/aninanya/Article/Attenuation-laws/data/silva02/table3.txt");
 //		if (silva2002.good())
 //		{
 //			for (size_t i = 0; i < 27; i++) {
@@ -224,7 +224,7 @@
 //
 //#if 1
 //
-//		coefT3.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/silva02/resultsT3.dat");
+//		coefT3.open("D:/Github/aninanya/Article/Attenuation-laws/results/silva02/resultsT3.dat");
 //		coefT3 << "#Coefficents for differents frequencies (Table3 - Silva et al., 2002)" << endl;
 //		coefT3 << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c10" << setw(WIDTH)<<"P. sigma" << setw(WIDTH)<<"T. sigma" << endl;
 //
@@ -242,7 +242,7 @@
 //		cout << "NICE" << endl;
 //		break;
 //	case 'B':
-//		silva2002.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/silva02/table4.txt");
+//		silva2002.open("D:/Github/aninanya/Article/Attenuation-laws/data/silva02/table4.txt");
 //		if (silva2002.good())
 //		{
 //			for (size_t i = 0; i < 27; i++) {
@@ -312,7 +312,7 @@
 //
 //#if 1
 //
-//		coefT4.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/silva02/resultsT4.dat");
+//		coefT4.open("D:/Github/aninanya/Article/Attenuation-laws/results/silva02/resultsT4.dat");
 //		coefT4 << "#Coefficents for differents frequencies (Table4 - Silva et al., 2002)" << endl;
 //		coefT4 << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c10" << setw(WIDTH) << "P. sigma" << setw(WIDTH) << "T. sigma" << endl;
 //
@@ -330,7 +330,7 @@
 //		cout << "NICE" << endl;
 //		break;
 //	case'C':
-//		silva2002.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/silva02/table5.txt");
+//		silva2002.open("D:/Github/aninanya/Article/Attenuation-laws/data/silva02/table5.txt");
 //		if (silva2002.good())
 //		{
 //			for (size_t i = 0; i < 27; i++) {
@@ -400,7 +400,7 @@
 //
 //#if 1
 //
-//		coefT5.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/silva02/resultsT5.dat");
+//		coefT5.open("D:/Github/aninanya/Article/Attenuation-laws/results/silva02/resultsT5.dat");
 //		coefT5 << "#Coefficents for differents frequencies (Table5 - Silva et al., 2002)" << endl;
 //		coefT5 << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c10" << setw(WIDTH) << "P. sigma" << setw(WIDTH) << "T. sigma" << endl;
 //
@@ -418,7 +418,7 @@
 //		cout << "NICE" << endl;
 //			break;
 //	case 'D':
-//		silva2002.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/silva02/table6.txt");
+//		silva2002.open("D:/Github/aninanya/Article/Attenuation-laws/data/silva02/table6.txt");
 //
 //		if (silva2002.good())
 //		{
@@ -488,7 +488,7 @@
 //
 //#if 1
 //
-//		coefT6.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/silva02/resultsT6.dat");
+//		coefT6.open("D:/Github/aninanya/Article/Attenuation-laws/results/silva02/resultsT6.dat");
 //		coefT6 << "#Coefficents for differents frequencies (Table6 - Silva et al., 2002)" << endl;
 //		coefT6 << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c10" << setw(WIDTH) << "P. sigma" << setw(WIDTH) << "T. sigma" << endl;
 //
@@ -508,7 +508,7 @@
 //		break;
 //
 //	case 'E':
-//		silva2002.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/silva02/table7.txt");
+//		silva2002.open("D:/Github/aninanya/Article/Attenuation-laws/data/silva02/table7.txt");
 //
 //		if (silva2002.good())
 //		{
@@ -578,7 +578,7 @@
 //
 //#if 1
 //
-//		coefT7.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/silva02/resultsT7.dat");
+//		coefT7.open("D:/Github/aninanya/Article/Attenuation-laws/results/silva02/resultsT7.dat");
 //		coefT7 << "#Coefficents for differents frequencies (Table7 - Silva et al., 2002)" << endl;
 //		coefT7 << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c10" << setw(WIDTH) << "P. sigma" << setw(WIDTH) << "T. sigma" << endl;
 //
@@ -597,7 +597,7 @@
 //
 //		break;
 //	case 'F':
-//		silva2002.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/silva02/tableBC.txt");
+//		silva2002.open("D:/Github/aninanya/Article/Attenuation-laws/data/silva02/tableBC.txt");
 //
 //		if (silva2002.good())
 //		{
@@ -668,7 +668,7 @@
 //
 //#if 1
 //
-//		coefTBC.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/silva02/resultsTBC.dat");
+//		coefTBC.open("D:/Github/aninanya/Article/Attenuation-laws/results/silva02/resultsTBC.dat");
 //		coefTBC << "#Coefficents for differents frequencies (TableBC - Silva et al., 2002)" << endl;
 //		coefTBC << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c10" << setw(WIDTH) << "P. sigma" << setw(WIDTH) << "T. sigma" << endl;
 //
@@ -773,7 +773,7 @@
 //	switch (OPTION)
 //	{
 //	case 'F':
-//		attenueationtableS02.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/silva02/silva02bc.atn");
+//		attenueationtableS02.open("D:/Github/aninanya/Article/Attenuation-laws/results/silva02/silva02bc.atn");
 //
 //		attenueationtableS02 << setprecision(PRECISION2);
 //		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Description" << setw(WIDTH) << ": Sample attenuation file constructed for illustration purposes (2008)" << endl;	
@@ -811,7 +811,7 @@
 //
 //		break;
 //	default:
-//		attenueationtableS02.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/silva02/silva02hr.atn");
+//		attenueationtableS02.open("D:/Github/aninanya/Article/Attenuation-laws/results/silva02/silva02hr.atn");
 //
 //		attenueationtableS02 << setprecision(PRECISION2);
 //		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Description" << setw(WIDTH) << ": Sample attenuation file constructed for illustration purposes (2008)" << endl;	

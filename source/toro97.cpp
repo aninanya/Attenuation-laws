@@ -65,7 +65,7 @@
 //	//-------------------------------
 //
 //	ifstream periods;
-//	periods.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/toro97/periods.txt");
+//	periods.open("D:/Github/aninanya/Article/Attenuation-laws/data/toro97/periods.txt");
 //
 //	//If we can read/write great
 //	while (periods.good())
@@ -151,7 +151,7 @@
 //	switch (OPTION)
 //	{
 //	case 'A':
-//		toro1997.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/toro97/table2mcmm.txt");
+//		toro1997.open("D:/Github/aninanya/Article/Attenuation-laws/data/toro97/table2mcmm.txt");
 //		if (toro1997.good())
 //		{
 //			for (size_t i = 0; i < 8; i++) {
@@ -161,7 +161,7 @@
 //		}
 //		break;
 //	case 'B':
-//		toro1997.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/toro97/table2gulfmm.txt");
+//		toro1997.open("D:/Github/aninanya/Article/Attenuation-laws/data/toro97/table2gulfmm.txt");
 //		if (toro1997.good())
 //		{
 //			for (size_t i = 0; i < 8; i++) {
@@ -232,7 +232,7 @@
 //
 //#if 1
 //
-//	coeficentsT2.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/toro97/resultsT2.dat");
+//	coeficentsT2.open("D:/Github/aninanya/Article/Attenuation-laws/results/toro97/resultsT2.dat");
 //	coeficentsT2 << "#Coefficents for differents frequencies (table2mcmm - Toro et al., 1997)" << endl;
 //	coeficentsT2 << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c10" << setw(WIDTH) << "P. sigma" << setw(WIDTH) << "T. sigma" << endl;
 //
@@ -251,7 +251,7 @@
 //#endif // 0
 //
 //#if 1
-//	aleatorymagnitude.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/toro97/table3.txt");
+//	aleatorymagnitude.open("D:/Github/aninanya/Article/Attenuation-laws/data/toro97/table3.txt");
 //	if (aleatorymagnitude.good())
 //	{
 //		for (size_t i = 0; i < 8; i++) {
@@ -260,7 +260,7 @@
 //		}
 //	}
 //
-//	aleatorydistance.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/toro97/table4.txt");
+//	aleatorydistance.open("D:/Github/aninanya/Article/Attenuation-laws/data/toro97/table4.txt");
 //	if (aleatorydistance.good())
 //	{
 //		for (size_t i = 0; i < 8; i++) {
@@ -370,7 +370,7 @@
 //
 //#if 0
 //
-//	coeficentsT2.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/toro97/resultsT2.dat");
+//	coeficentsT2.open("D:/Github/aninanya/Article/Attenuation-laws/results/toro97/resultsT2.dat");
 //	coeficentsT2 << "#Coefficents for differents frequencies (table2mcmm - Toro et al., 1997)" << endl;
 //	coeficentsT2 << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c10" << setw(WIDTH) << "P. sigma" << setw(WIDTH) << "T. sigma" << endl;
 //
@@ -450,7 +450,7 @@
 //	//OUTPUT 1
 //	ofstream attenueationtableT97;
 //
-//	attenueationtableT97.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/toro97/toro97.atn");
+//	attenueationtableT97.open("D:/Github/aninanya/Article/Attenuation-laws/results/toro97/toro97.atn");
 //
 //	attenueationtableT97 << setprecision(PRECISION2);
 //	//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Description" << setw(WIDTH) << ": Sample attenuation file constructed for illustration purposes (2008)" << endl;	

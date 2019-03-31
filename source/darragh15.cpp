@@ -65,7 +65,7 @@
 //	//-------------------------------
 //
 //	ifstream periods;
-//	periods.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/darragh15/periods.txt");
+//	periods.open("D:/Github/aninanya/Article/Attenuation-laws/data/darragh15/periods.txt");
 //
 //	//If we can read/write great
 //	while (periods.good())
@@ -138,7 +138,7 @@
 //	switch (OPTION)
 //	{
 //	case 'A':
-//		darragh2015.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/darragh15/table3-5a.txt");
+//		darragh2015.open("D:/Github/aninanya/Article/Attenuation-laws/data/darragh15/table3-5a.txt");
 //		if (darragh2015.good())
 //		{
 //			for (size_t i = 0; i < 24; i++) {
@@ -152,7 +152,7 @@
 //		break;
 //	
 //	case 'B':
-//		darragh2015.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/darragh15/table3-5b.txt");
+//		darragh2015.open("D:/Github/aninanya/Article/Attenuation-laws/data/darragh15/table3-5b.txt");
 //		if (darragh2015.good())
 //		{
 //			for (size_t i = 0; i < 24; i++) {
@@ -165,7 +165,7 @@
 //			tfrequencies.at(i) = table3.at(i).at(0);
 //		break;
 //	case 'C':
-//		darragh2015.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/darragh15/table3-5c.txt");
+//		darragh2015.open("D:/Github/aninanya/Article/Attenuation-laws/data/darragh15/table3-5c.txt");
 //		if (darragh2015.good())
 //		{
 //			for (size_t i = 0; i < 24; i++) {
@@ -178,7 +178,7 @@
 //			tfrequencies.at(i) = table3.at(i).at(0);
 //		break;
 //	case 'D':
-//		darragh2015.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/darragh15/table3-5d.txt");
+//		darragh2015.open("D:/Github/aninanya/Article/Attenuation-laws/data/darragh15/table3-5d.txt");
 //		if (darragh2015.good())
 //		{
 //			for (size_t i = 0; i < 24; i++) {
@@ -248,7 +248,7 @@
 //
 //#if 1
 //
-//	coefT3.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/darragh15/resultsT3.dat");
+//	coefT3.open("D:/Github/aninanya/Article/Attenuation-laws/results/darragh15/resultsT3.dat");
 //	coefT3 << "#Coefficents for differents frequencies (table 3.5 - Darragh et al., 2015)" << endl;
 //	coefT3 << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c10" << setw(WIDTH) << "P. sigma" << setw(WIDTH) << "T. sigma" << endl;
 //
@@ -332,16 +332,16 @@
 //	switch (OPTION)
 //	{
 //	case 'A':
-//		attenueationtableD15.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/darragh15/darragh15_SC-VS-S.atn");
+//		attenueationtableD15.open("D:/Github/aninanya/Article/Attenuation-laws/results/darragh15/darragh15_SC-VS-S.atn");
 //		break;
 //	case 'B':
-//		attenueationtableD15.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/darragh15/darragh15_SC-CS-S.atn");
+//		attenueationtableD15.open("D:/Github/aninanya/Article/Attenuation-laws/results/darragh15/darragh15_SC-CS-S.atn");
 //		break;
 //	case 'C':
-//		attenueationtableD15.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/darragh15/darragh15_DC-VS-S.atn");
+//		attenueationtableD15.open("D:/Github/aninanya/Article/Attenuation-laws/results/darragh15/darragh15_DC-VS-S.atn");
 //		break;
 //	case 'D':
-//		attenueationtableD15.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/darragh15/darragh15_DC-CS-S.atn");
+//		attenueationtableD15.open("D:/Github/aninanya/Article/Attenuation-laws/results/darragh15/darragh15_DC-CS-S.atn");
 //		break;
 //	}
 //

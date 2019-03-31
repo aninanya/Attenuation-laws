@@ -75,7 +75,7 @@
 //							   //-------------------------------
 //
 //	ifstream periods;
-//	periods.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab11/periods.txt");
+//	periods.open("D:/Github/aninanya/Article/Attenuation-laws/data/ab11/periods.txt");
 //
 //	//If we can read/write great
 //	while (periods.good())
@@ -146,7 +146,7 @@
 //
 //		// Open our file tabla6.txt
 //		ifstream inFile1;
-//		inFile1.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab11/table6.txt");
+//		inFile1.open("D:/Github/aninanya/Article/Attenuation-laws/data/ab11/table6.txt");
 //
 //
 //		Vector f6(25);// Vector of table 6's frequencies
@@ -226,7 +226,7 @@
 //		//------------------------------------------------------------------------------------------------------------------OK
 //#if 1
 //		ofstream coefT6; // Archive
-//		coefT6.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/resultsT6.dat");
+//		coefT6.open("D:/Github/aninanya/Article/Attenuation-laws/results/ab11/resultsT6.dat");
 //		coefT6 << "#Coefficents for differents frequencies (Table6 - Atkinson and Boore, 2006)" << endl;
 //		coefT6 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
 //
@@ -246,7 +246,7 @@
 //		//TABLE 9
 //		// Open our file tabla9.txt
 //		ifstream inFile2;
-//		inFile2.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab11/table9.txt");
+//		inFile2.open("D:/Github/aninanya/Article/Attenuation-laws/data/ab11/table9.txt");
 //
 //
 //		Vector f9(25);// Vector of table 9's frequencies
@@ -325,7 +325,7 @@
 //		//------------------------------------------------------------------------------------------------------------------OK
 //#if 1
 //		ofstream coefT9; // Archive
-//		coefT9.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/resultsT9.dat");
+//		coefT9.open("D:/Github/aninanya/Article/Attenuation-laws/ab11/resultsT9.dat");
 //		coefT9 << "#Coefficents for differents frequencies (Table9 - Atkinson and Boore, 2006)" << endl;
 //		coefT9 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
 //
@@ -343,7 +343,7 @@
 //		// TABLE 8
 //		// Open our file tabla8.txt
 //		ifstream inFile3;
-//		inFile3.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab11/table8.txt");
+//		inFile3.open("D:/Github/aninanya/Article/Attenuation-laws/data/ab11/table8.txt");
 //
 //
 //		Vector f8(23);// Vector of table 8's frequencies
@@ -422,7 +422,7 @@
 //		//------------------------------------------------------------------------------------------------------------------OK
 //
 //		ofstream coefT8; // Archive
-//		coefT8.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/resultsT8.dat");
+//		coefT8.open("D:/Github/aninanya/Article/Attenuation-laws/results/ab11/resultsT8.dat");
 //		coefT8 << "#Coefficents for differents frequencies (Table8 - Atkinson and Boore, 2006)" << endl;
 //		coefT8 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
 //
@@ -453,7 +453,7 @@
 //#if 1
 //	// Open our file tabla7.txt
 //	ifstream inFile4;
-//	inFile4.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/data/ab11/table7.txt");
+//	inFile4.open("D:/Github/aninanya/Article/Attenuation-laws/data/ab11/table7.txt");
 //
 //
 //	Vector f7(25);// Vector of table 7's frequencies
@@ -532,7 +532,7 @@
 //	//------------------------------------------------------------------------------------------------------------------OK
 //
 //	ofstream coefT7; // Archive
-//	coefT7.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/resultsT7.dat");
+//	coefT7.open("D:/Github/aninanya/Article/Attenuation-laws/results/ab11/resultsT7.dat");
 //	coefT7 << "#Coefficents for differents frequencies (Table7 - Atkinson and Boore, 2006)" << endl;
 //	coefT7 << setw(WIDTH) << "f(Hz)" << setw(WIDTH) << "T(sec)" << setw(WIDTH) << "c1" << setw(WIDTH) << "c2" << setw(WIDTH) << "c3" << setw(WIDTH) << "c4" << setw(WIDTH) << "c5" << setw(WIDTH) << "c6" << setw(WIDTH) << "c7" << setw(WIDTH) << "c8" << setw(WIDTH) << "c9" << setw(WIDTH) << "c10" << endl;
 //
@@ -598,7 +598,7 @@
 //		S = 0.0;
 //		//OUTPUT 1
 //		ofstream ab06;
-//		ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/ab11.atn");
+//		ab06.open("D:/Github/aninanya/Article/Attenuation-laws/results/ab11/ab11.atn");
 //
 //		ab06 << setprecision(PRECISION2);
 //		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Description" << setw(WIDTH) << ": Sample attenuation file constructed for illustration purposes (2008)" << endl;	
@@ -711,7 +711,7 @@
 //		// GETTING S VALUE
 //#if 1
 //		ofstream soilsvalue;
-//		soilsvalue.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/soilsvalue.atn");
+//		soilsvalue.open("D:/Github/aninanya/Article/Attenuation-laws/results/ab11/soilsvalue.atn");
 //
 //		for (size_t i = 0; i < periodsreq.size(); i++)
 //		{
@@ -747,7 +747,7 @@
 //
 //		//OUTPUT 2
 //		ofstream ab06;
-//		ab06.open("C:/Users/Hugo Ninnanya/Documents/GibHub/aninanya/BOORE/BOORE/results/ab11/ab11.atn");
+//		ab06.open("D:/Github/aninanya/Article/Attenuation-laws/results/ab11/ab11.atn");
 //
 //		ab06 << setprecision(PRECISION2);
 //		//ab06 << setw(WIDTH) << "#" << setw(WIDTH) << ": Description" << setw(WIDTH) << ": Sample attenuation file constructed for illustration purposes (2008)" << endl;	
